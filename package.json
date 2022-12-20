@@ -9,8 +9,8 @@
     "lint-staged": "lint-staged",
     "pretty-quick": "pretty-quick",
     "ts-node": "ts-node",
-    "debug": "nodemon src/start.ts",
-    "start": "ts-node src/start.ts"
+    "debug": "nodemon src/index.ts",
+    "start": "ts-node src/index.ts"
   },
   "author": "Ashish Koshy",
   "devDependencies": {

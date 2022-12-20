@@ -1,0 +1,44 @@
+{
+  "root": true,
+  "ignorePatterns": [],
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "parserOptions": {
+        "project": ["tsconfig.json"],
+        "createDefaultProgram": true,
+        "ecmaVersion": "latest"
+      },
+      "env": {
+        "es6": true
+      },
+      "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking",
+        "prettier"
+      ],
+      "rules": {
+        "@typescript-eslint/no-unsafe-member-access": "error",
+        "@typescript-eslint/no-use-before-define": "error",
+        "@typescript-eslint/no-unsafe-assignment": "off",
+        "@typescript-eslint/no-floating-promises": "off",
+        "@typescript-eslint/no-explicit-any": "error",
+        "@typescript-eslint/no-unused-vars": "error",
+        "@typescript-eslint/no-this-alias": "error",
+        "@typescript-eslint/unbound-method": "off",
+        "@typescript-eslint/indent": ["error", 2],
+        "prefer-arrow-callback": "warn",
+        "prefer-const": "warn",
+        "default-case": "warn",
+        "no-unneeded-ternary": "warn",
+        "no-return-assign": "error",
+        "no-nested-ternary": "warn",
+        "no-const-assign": "error",
+        "no-fallthrough": "warn",
+        "no-console": "error",
+        "radix": "warn"
+      }
+    }
+  ]
+}

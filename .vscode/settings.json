@@ -1,0 +1,31 @@
+{
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true
+  },
+  "search.exclude": {
+    "**/node_modules/**": true,
+    "**/.vscode/**": true,
+    "**/.husky/**": true,
+    "**/dist/**": true
+  },
+  "files.watcherExclude": {
+    "**/node_modules/*/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/.git/objects/**": true
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+    "source.organizeImports": true
+  },
+  "editor.bracketPairColorization.enabled": true,
+  "[javascript]": {
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "editor.insertSpaces": true
+}

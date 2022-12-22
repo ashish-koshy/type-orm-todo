@@ -2,7 +2,7 @@
   "name": "type-orm-todo",
   "version": "1.0.0",
   "scripts": {
-    "postinstall": "ts-node src/post-install.ts",
+    "postinstall": "ts-node src/postInstall.ts",
     "eslint": "eslint",
     "prettier": "prettier",
     "prepare": "husky install",

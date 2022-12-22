@@ -21,7 +21,7 @@ export abstract class UserData {
   public static async add(data: DeepPartial<User>): Promise<void> {
     try {
       const ds = await TodoDataSource.initialize();
-      const user = await UserData.get(data);
+      const user = await UserData.get({ emailId: data.emailId });
       if (user) return;
       const newUser = ds?.manager?.create(User, data);
       await ds?.manager?.save(newUser);

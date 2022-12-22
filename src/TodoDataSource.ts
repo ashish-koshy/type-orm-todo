@@ -44,7 +44,7 @@ export abstract class TodoDataSource {
       console.log('Datasource schema build successful');
       await dataSource?.destroy();
     } catch (ex) {
-      console.log('Datasource schema build successful', ex);
+      console.log('Datasource schema build unsuccessful', ex);
     }
   }
 }

@@ -29,10 +29,10 @@ app.set('json spaces', 2);
 
 app.get('/', (req, res) => res.send('Hello Todo ORM!'));
 
-app.get('/users/add', (req, res) => {
+app.get('/users', (req, res) => {
   getUser('janedoe@example.com')
-    .then((data) => res.send(data).json())
-    .catch(() => res.send({}));
+    .then((data) => res.json(data))
+    .catch(() => res.json({}));
 });
 
 const listenPort =

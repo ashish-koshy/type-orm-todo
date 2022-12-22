@@ -5,5 +5,5 @@ import { TodoDataSource } from './TodoDataSource';
 
 (async () => {
   EnvironmentConfig.initialize();
-  await TodoDataSource.seed();
+  await TodoDataSource.buildSchema();
 })();

@@ -1,22 +1,28 @@
 /* eslint-disable no-console */
 
-import { ensureFileSync } from 'fs-extra';
+import { ensureFileSync, readFileSync } from 'fs-extra';
 import { join } from 'path';
 import { DataSource } from 'typeorm';
 
+import dotenv from 'dotenv';
+const parsedConfig = dotenv.config()?.parsed || {};
+
 let dataSource!: DataSource;
-const dataSourceType = 'sqlite' as const;
 const dataSourcePath = join(__dirname, '../todo.db');
 
 export abstract class TodoDataSource {
-  
   public static async initialize(): Promise<DataSource | undefined> {
     try {
       ensureFileSync(dataSourcePath);
       if (!dataSource?.isInitialized) {
         dataSource = new DataSource({
-          type: dataSourceType,
           database: dataSourcePath,
+          type: 'sqlite',
+          logging: parsedConfig['ENABLE_DATASOURCE_LOGS'] === 'true',
+          synchronize:
+            parsedConfig['ENABLE_DATASOURCE_SYNCHRONIZATION'] === 'true',
+          entities: [`${join(__dirname, '/entity/**.ts')}`],
+          migrations: [`${join(__dirname, '/migrations/**.ts')}`],
         });
         await dataSource?.initialize();
       }
@@ -27,41 +33,18 @@ export abstract class TodoDataSource {
     }
   }
 
-  public static async seed(): Promise<void> {
+  public static async buildSchema(): Promise<void> {
     let ds: DataSource | undefined;
     try {
       ds = await TodoDataSource.initialize();
-      await ds?.query(`
-        CREATE TABLE IF NOT EXISTS Users (
-          id INTEGER PRIMARY KEY AUTOINCREMENT,
-          firstName TEXT NOT NULL,
-          lastName TEXT NULL,
-          emailId TEXT NULL,
-          isActive TEXT NULL 
-        );`);
-      const seed: unknown[] = await dataSource?.query(`
-        SELECT * FROM 
-          Users
-        WHERE
-          firstName="Jane" AND
-          lastName="Doe" AND
-          emailId="janedoe@abc.com"
-      `) || [];
-      if (seed?.length === 0) {
-        await dataSource?.query(`
-          INSERT INTO Users VALUES (
-            NULL, 
-            'Jane', 
-            'Doe', 
-            'janedoe@abc.com', 
-            'false'
-          );`);
-        console.log('Datasource seeding successful');
-      } else
-        console.log('Datasource already seeded');
+      const schema = readFileSync(join(__dirname, '/TodoSchema.sql'), {
+        encoding: 'utf-8',
+      });
+      await ds?.query(schema);
+      console.log('Datasource schema build successful');
       await dataSource?.destroy();
     } catch (ex) {
-      console.log('Error whille seeding datasource', ex);
+      console.log('Datasource schema build successful', ex);
     }
   }
 }

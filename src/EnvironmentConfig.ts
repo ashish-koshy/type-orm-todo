@@ -1,5 +1,10 @@
 /* eslint-disable no-console */
-import { createFileSync, existsSync, writeFileSync } from 'fs-extra';
+import {
+  createFileSync,
+  existsSync,
+  readFileSync,
+  writeFileSync,
+} from 'fs-extra';
 
 export abstract class EnvironmentConfig {
   /** Initialize `dotenv` compatible environment config file */
@@ -7,9 +12,12 @@ export abstract class EnvironmentConfig {
     try {
       if (!existsSync('.env')) {
         createFileSync('.env');
-        writeFileSync('.env', `# ADD ENVIRONMENT VARIABLES HERE`);
+        writeFileSync(
+          '.env',
+          readFileSync('.env.SAMPLE', { encoding: 'utf-8' })
+        );
       }
-    } catch(e: unknown) {
+    } catch (e: unknown) {
       console.log('Environment configuration failed', e);
     }
   }

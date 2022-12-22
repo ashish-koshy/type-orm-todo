@@ -3,18 +3,41 @@ import { DeepPartial } from 'typeorm';
 import { UserData } from './data/user';
 import { User } from './entity/user';
 
+import dotenv from 'dotenv';
+const parsedConfig = dotenv.config()?.parsed || {};
+
 const dummyUser: DeepPartial<User> = {
   firstName: 'Jane',
   lastName: 'Doe',
   emailId: 'janedoe@example.com',
 };
 
-(async () => {
+const getUser = async (emailId: string) => {
   try {
     await UserData.add(dummyUser);
-    const readUser = await UserData.get({ emailId: 'janedoe@example.com' });
-    console.log(readUser);
+    return (await UserData.get({ emailId })) || {};
   } catch (e: unknown) {
     console.log(e);
+    return {};
   }
-})();
+};
+
+import express from 'express';
+const app = express();
+
+app.set('json spaces', 2);
+
+app.get('/', (req, res) => res.send('Hello Todo ORM!'));
+
+app.get('/users/add', (req, res) => {
+  getUser('janedoe@example.com')
+    .then((data) => res.send(data).json())
+    .catch(() => res.send({}));
+});
+
+const listenPort =
+  parseInt(parsedConfig['EXPRESS_SERVER_LISTEN_PORT'], 10) || 3000;
+
+app.listen(listenPort);
+
+console.log(`Express started on port : ${listenPort}`);

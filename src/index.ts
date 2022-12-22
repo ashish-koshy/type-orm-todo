@@ -11,8 +11,7 @@ const dummyUser: DeepPartial<User> = {
 
 (async () => {
   try {
-    const userExists = await UserData.get({ emailId: 'janedoe@example.com' });
-    if (!userExists) await UserData.add(dummyUser);
+    await UserData.add(dummyUser);
     const readUser = await UserData.get({ emailId: 'janedoe@example.com' });
     console.log(readUser);
   } catch (e: unknown) {

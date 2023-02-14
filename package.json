@@ -2,17 +2,23 @@
   "name": "type-orm-todo",
   "version": "1.0.0",
   "scripts": {
-    "postinstall": "ts-node src/postInstall.ts",
     "eslint": "eslint",
+    "ts-node": "ts-node",
     "prettier": "prettier",
     "prepare": "husky install",
     "lint-staged": "lint-staged",
     "pretty-quick": "pretty-quick",
-    "ts-node": "ts-node",
-    "debug": "nodemon src/index.ts",
-    "start": "ts-node src/index.ts"
+    "start": "nodemon src/index.ts"
   },
   "author": "Ashish Koshy",
+  "dependencies": {
+    "reflect-metadata": "^0.1.13",
+    "sqlite3": "^5.0.2",
+    "typeorm": "0.3.12",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "fs-extra": "^10.1.0"
+  },
   "devDependencies": {
     "@types/express": "^4.17.15",
     "@types/fs-extra": "^9.0.13",
@@ -20,8 +26,6 @@
     "@types/sqlite3": "^3.1.8",
     "@typescript-eslint/eslint-plugin": "^5.47.0",
     "@typescript-eslint/parser": "^5.47.0",
-    "axios": "^1.2.0",
-    "dotenv": "^16.0.3",
     "eslint": "^8.27.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^8.5.0",
@@ -29,8 +33,6 @@
     "eslint-plugin-jsdoc": "^39.6.2",
     "eslint-plugin-prefer-arrow": "^1.2.3",
     "eslint-plugin-prettier": "^4.2.1",
-    "express": "^4.18.2",
-    "fs-extra": "^10.1.0",
     "husky": "^6.0.0",
     "lint-staged": "^13.0.3",
     "nodemon": "^2.0.20",
@@ -47,12 +49,5 @@
     "*.{js,ts,json}": [
       "npm run pretty-quick -- --staged"
     ]
-  },
-  "dependencies": {
-    "better-sqlite3": "^8.0.1",
-    "install": "^0.13.0",
-    "npm": "^9.2.0",
-    "sqlite3": "^5.1.4",
-    "typeorm": "^0.3.11"
   }
 }
